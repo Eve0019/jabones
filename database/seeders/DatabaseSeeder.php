@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $roleAdmin = Role::create(['name'=>'admin']);
+        $roleUser = Role::create(['name'=>'user']);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        //$roleAdmin->syncPermissionTo(Permission::create([]))
+
+        \App\Models\Producto::factory(30)->create();
+
+
+        \App\Models\User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => '$2y$10$Vvjco55nc4zHvdvFLyWCReXSo31BhJ0XtviPlj4Y5hpN282HVjIVq',
+        ])->assignRole('admin');
+        \App\Models\User::factory()->create([
+            'name' => 'Jonhatan Jacob Higuera Camacho',
+            'email' => 'jonhatan.higuera5180@alumnos.udg.mx',
+            'password' => '$2y$10$Vvjco55nc4zHvdvFLyWCReXSo31BhJ0XtviPlj4Y5hpN282HVjIVq',
+        ])->assignRole('user');
+
+
+
     }
 }
