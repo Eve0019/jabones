@@ -11,8 +11,9 @@ class ListadoProductos extends Component
     use WithPagination;
 
     public $categoria = '';
+    public bool $verProducto = false;
 
-    protected $listeners = ['cambioCategoria'];
+    protected $listeners = ['cambioCategoria','renderProductos'];
 
     // public $productos;
 
@@ -25,16 +26,30 @@ class ListadoProductos extends Component
         $this->categoria = $categoria;
         $this->resetPage();
     }
+    public function renderProductos($mensaje,$estilo = 'success')
+    {
+        $this->render();
+        /* session()->flash('flash.banner', $mensaje); */
+        $this->dispatchBrowserEvent('banner-message', [
+            'message' => $mensaje,
+            'style' => $estilo
+        ]);
+    }
+
+    public function mostrarProducto($id)
+    {
+        $this->emit('mostrarProducto',$id);
+    }
 
 
 
     public function render()
     {
         $contenido = [];
-        if($this->categoria === ''){
-            $contenido['productos'] = Producto::paginate(8);
+        if($this->categoria === '' || $this->categoria === 'todos'){
+            $contenido['productos'] = Producto::latest()->paginate(8);
         }else{
-            $contenido['productos'] = Producto::where('categoria',$this->categoria)->paginate(8);
+            $contenido['productos'] = Producto::where('categoria',$this->categoria)->latest()->paginate(8);
         }
         return view('livewire.listado-productos', $contenido);
     }

@@ -9,7 +9,12 @@ class ListadoCategorias extends Component
     public $categorias;
 
     public function mount(){
-        $this->categorias = ['shampoo','acondicionador','jabón','crema','pasta dental'];
+        $this->categorias = ['todos','shampoo','acondicionador','jabón','crema','pasta dental'];
+    }
+
+    public function emitCategoria($categoria){
+
+        $this->emit('cambioCategoria',$categoria);
     }
 
     public function render()

@@ -32,6 +32,7 @@
                 </header>
             @endif
 
+            
             <!-- Page Content -->
             <main>
                 {{ $slot }}
@@ -41,5 +42,6 @@
         @stack('modals')
 
         @livewireScripts
+        
     </body>
 </html>

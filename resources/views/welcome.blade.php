@@ -179,7 +179,7 @@
                                             Precio
                                         </span>
                                         <span className="ml-2 text-lg leading-7">
-                                            Cualquier mamada
+                                            Cualquier categoria
                                         </span>
                                       </div>
                                     </div>
